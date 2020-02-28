@@ -1,0 +1,143 @@
+﻿@model PaginatedList<AbaraWebApplication.Models.Article>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ProjectHelpers.DicCategory1Name[ViewBag.Category1]
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">서비스관리</a></li>
+            <li class="active">@ProjectHelpers.DicCategory1Name[ViewBag.Category1]</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-body no-padding">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td class="text-center">@Html.DisplayNameFor(model => model[0].ArticleId)</td>
+                            <td class="text-center">
+                                @Html.DisplayNameFor(model => model[0].InsertedAt)
+                            </td>
+                            @if (ViewBag.Category1 == "MK" || ViewBag.Category1 == "JB")
+                            {
+                                <td>@Html.DisplayNameFor(model => model[0].Category2)</td>
+                            }
+                            @if (ViewBag.Category1 == "MK")
+                            {
+                                <td class="text-center">@Html.DisplayNameFor(model => model[0].CoverImage)</td>
+                            }
+                            <td class="text-center">@Html.DisplayNameFor(model => model[0].User)</td>
+                            <td class="text-center">@Html.DisplayNameFor(model => model[0].Subject)</td>
+                            <td class="text-center">@Html.DisplayNameFor(model => model[0].ViewCount)</td>
+                            <td class="text-center">@Html.DisplayNameFor(model => model[0].UpvoteCount)</td>
+                            <td class="text-center">@Html.DisplayNameFor(model => model[0].CommentCount)</td>
+                            @if (ViewBag.Category1 == "MK" || ViewBag.Category1 == "JB" || ViewBag.Category1 == "CT" || ViewBag.Category1 == "SS")
+                            {
+                                <td class="text-center">@Html.DisplayNameFor(model => model[0].IsOngoing)</td>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.ArticleId)</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.InsertedAt)</td>
+                                @if (ViewBag.Category1 == "MK" || ViewBag.Category1 == "JB")
+                                {
+                                    <td>@Html.DisplayFor(modelItem => item.Category2)</td>
+                                }
+                                @if (ViewBag.Category1 == "MK")
+                                {
+                                    @if (string.IsNullOrEmpty(item.CoverImage))
+                                    {
+                                        <td></td>
+                                    }
+                                    else
+                                    {
+                                        <td><img style="width:50px;" src="/image/article-resized/@Html.DisplayFor(modelItem => item.CoverImage)"></td>
+                                    }
+                                }
+                                <td><a href="/admin/user/details/@Html.DisplayFor(modelItem => item.User.UserId)">@Html.DisplayFor(modelItem => item.User.UserName)</a></td>
+                                <td>
+                                    <a href="details/@Html.DisplayFor(modelItem => item.ArticleId)">
+                                        @if (item.IsDeleted)
+                                        {
+                                            <del>@Html.DisplayFor(modelItem => item.Subject)</del>
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.Subject)
+                                        }
+                                    </a>
+                                </td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.ViewCount)</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.UpvoteCount)</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.CommentCount)</td>
+                                @if (ViewBag.Category1 == "MK" || ViewBag.Category1 == "JB" || ViewBag.Category1 == "CT" || ViewBag.Category1 == "SS")
+                                {
+                                    @if (item.IsOngoing)
+                                    {
+                                        <td class="text-blue text-center">진행중</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-red text-center">완료</td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row dataTables_paginate paging_simple_numbers text-center">
+                <ul class="pagination" style="margin: 25px;">
+                    @if (Model.PageLinkLeft == -1)
+                    {
+                        <li class="paginate_button previous disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="paginate_button previous">
+                            <a class="page-link" asp-route-page="@Model.PageLinkLeft">Previous</a>
+                        </li>
+                    }
+                    @for (int i = Model.PageLinkStart; i <= Model.PageLinkEnd; i++)
+                    {
+                        var active = (Model.PageIndex == i) ? "active" : "";
+
+                        <li class="paginate_button @active">
+                            <a class="page-link" asp-route-page="@i">@i</a>
+                        </li>
+                    }
+                    @if (Model.PageLinkRight == -1)
+                    {
+                        <li class="paginate_button next disabled">
+                            <a class="page-link">Next</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="paginate_button next">
+                            <a class="page-link" asp-route-page="@Model.PageLinkRight">Next</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.container -->

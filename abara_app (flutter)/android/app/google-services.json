@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "957069957355",
+    "firebase_url": "https://abara-6ac3c.firebaseio.com",
+    "project_id": "abara-6ac3c",
+    "storage_bucket": "abara-6ac3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957069957355:android:997d21e0292e318658c6ae",
+        "android_client_info": {
+          "package_name": "kr.co.abara.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957069957355-ohl4umt7n9a848kome0og8h4391juq95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjDugD_jadI22EBIw_hM43EDZZH30UPqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957069957355-ohl4umt7n9a848kome0og8h4391juq95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

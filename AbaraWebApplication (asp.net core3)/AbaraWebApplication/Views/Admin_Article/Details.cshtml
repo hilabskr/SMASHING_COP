@@ -1,0 +1,170 @@
+﻿@model AbaraWebApplication.Models.Article
+
+@{
+    var listFileName = Model.FileNames.Split('/').ToList();
+    var listFileProperty = Model.FileProperties.Split('/').ToList();
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ProjectHelpers.DicCategory1Name[Model.Category1]
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">서비스관리</a></li>
+            <li class="active">@ProjectHelpers.DicCategory1Name[Model.Category1]</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-body">
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ArticleId)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ArticleId)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.User)
+                    </dt>
+                    <dd>
+                        <a href="/admin/user/details/@Html.DisplayFor(model => model.User.UserId)">@Html.DisplayFor(model => model.User.UserName)</a>
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Category1)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Category1)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Category2)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Category2)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Subject)
+                    </dt>
+                    <dd>
+                        <span style="white-space:pre-wrap;">@Html.DisplayFor(model => model.Subject)</span>
+                    </dd>
+
+                    @for (int i = 0; i < 4; i++)
+                    {
+                        if (Model.Category1 != "MK") continue;
+                        <dt>
+                            이미지 @(i + 1)
+                        </dt>
+                        <dd>
+                            @if (listFileName[i] == "_")
+                            {
+                                <span>none</span>
+                            }
+                            else
+                            {
+                                <a href="/image/article/@listFileName[i]">
+                                    <img src="/image/article-resized/@listFileName[i]" style="width:300px;" />
+                                </a>
+                                <div style="margin-bottom:10px;">@listFileProperty[i]</div>
+                            }
+                        </dd>
+                    }
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Content)
+                    </dt>
+                    <dd>
+                        <p style="white-space:pre-wrap;">@Html.DisplayFor(model => model.Content)</p>
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ViewUserIds)
+                    </dt>
+                    <dd>
+                        <span style="word-wrap:break-word;">@Html.DisplayFor(model => model.ViewUserIds)</span>
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ViewCount)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ViewCount)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UpvoteUserIds)
+                    </dt>
+                    <dd>
+                        <span style="word-wrap:break-word;">@Html.DisplayFor(model => model.UpvoteUserIds)</span>
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UpvoteCount)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UpvoteCount)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CommentCount)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CommentCount)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RemoteIpAddress)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.RemoteIpAddress)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.InsertedAt)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.InsertedAt)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UpdatedAt)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UpdatedAt)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsOngoing)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IsOngoing)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsDeleted)
+                    </dt>
+                    <dd>
+                        <form action="/admin/article/edit/@Model.ArticleId" method="post">
+                            @if (Model.IsDeleted)
+                            {
+                                <input class="check-box" type="checkbox" name="IsDeleted" value="true" style="float:left;" checked="checked" />
+                            }
+                            else
+                            {
+                                <input class="check-box" type="checkbox" name="IsDeleted" value="true" style="float:left;" />
+                            }
+                            <input class="btn btn-outline-primary" type="submit" value="수정" style="margin-left:20px; margin-top:-5px;" />
+                        </form>
+                    </dd>
+                    <dt>
+                    </dt>
+                    <dd>
+                        <button class="btn btn-outline-primary" style="margin-top:20px;" onclick="history.back();">BACK</button>
+                    </dd>
+                </dl>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.container -->

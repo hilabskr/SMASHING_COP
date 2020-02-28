@@ -1,0 +1,131 @@
+﻿@model AbaraWebApplication.Models.User
+
+@{
+    var salt = Model.Salt.Cut(14, "....");
+    var hashedPassword = Model.HashedPassword.Cut(24, "....");
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            회원리스트
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">회원관리</a></li>
+            <li class="active">회원리스트</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-body">
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UserId)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UserId)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProfileImage)
+                    </dt>
+                    <dd>
+                        @if (string.IsNullOrEmpty(Model.ProfileImage))
+                        {
+                            <a href="/image/user/_default_profile.png">
+                                <img style="width:50px;" src="/image/user/_default_profile.png">
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/image/user/@Model.ProfileImage">
+                                <img style="width:100px; height:100px; object-fit:cover; border-radius: 50% !important;" src="/image/user-resized-1020/@Model.ProfileImage">
+                            </a>
+                        }
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UserName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SchoolName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SchoolName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Gender)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BirthYear)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.BirthYear)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Comment)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Comment)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Salt)
+                    </dt>
+                    <dd>
+                        @salt
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.HashedPassword)
+                    </dt>
+                    <dd>
+                        @hashedPassword
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SignUpAt)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SignUpAt)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UpdatedAt)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UpdatedAt)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LastLoginAt)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.LastLoginAt)
+                    </dd>
+                    <dt>
+                    </dt>
+                    <dd>
+                        <button class="btn btn-outline-primary" style="margin-top:20px;" onclick="history.back();">BACK</button>
+                    </dd>
+                </dl>
+
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.container -->

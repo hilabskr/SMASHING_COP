@@ -1,0 +1,92 @@
+﻿@model PaginatedList<AbaraWebApplication.Models.RelationshipScoreArticleFree>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            관계지수(자유)
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">특허지수</a></li>
+            <li class="active">관계지수(자유)</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="box box-default">
+            <div class="box-body no-padding">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td class="text-center">ID</td>
+                            <td class="text-center">회원</td>
+                            <td class="text-center">게시물</td>
+                            <td class="text-center">관계점수</td>
+                            <td class="text-center">변동</td>
+                            <td class="text-center">업데이트</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var delta = (item.RelationshipScore ?? 0 - item.RelationshipScore ?? 0);
+                            var deltaDisplay = (delta > 0) ? "+" + delta : delta.ToString();
+                            <tr>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.RelationshipId)</td>
+                                <td class="text-center"><a href="/admin/user/details/@Html.DisplayFor(modelItem => item.UserId)">@Html.DisplayFor(modelItem => item.UserId)</a></td>
+                                <td class="text-center"><a href="/admin/article/details/@Html.DisplayFor(modelItem => item.ArticleId)">@Html.DisplayFor(modelItem => item.ArticleId)</a></td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.RelationshipScore)</td>
+                                <td class="text-center">@deltaDisplay</td>
+                                <td class="text-center">@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row dataTables_paginate paging_simple_numbers text-center">
+                <ul class="pagination" style="margin: 25px;">
+                    @if (Model.PageLinkLeft == -1)
+                    {
+                    <li class="paginate_button previous disabled">
+                        <a class="page-link">Previous</a>
+                    </li>
+                    }
+                    else
+                    {
+                    <li class="paginate_button previous">
+                        <a class="page-link" asp-route-page="@Model.PageLinkLeft">Previous</a>
+                    </li>
+                    }
+                    @for (int i = Model.PageLinkStart; i <= Model.PageLinkEnd; i++)
+                    {
+                        var active = (Model.PageIndex == i) ? "active" : "";
+
+                    <li class="paginate_button @active">
+                        <a class="page-link" asp-route-page="@i">@i</a>
+                    </li>
+                    }
+                    @if (Model.PageLinkRight == -1)
+                    {
+                    <li class="paginate_button next disabled">
+                        <a class="page-link">Next</a>
+                    </li>
+                    }
+                    else
+                    {
+                    <li class="paginate_button next">
+                        <a class="page-link" asp-route-page="@Model.PageLinkRight">Next</a>
+                    </li>
+                    }
+                </ul>
+            </div>
+
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>
